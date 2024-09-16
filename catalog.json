@@ -1,0 +1,26 @@
+[
+  {
+    "model": "catalog.category",
+    "pk": 1,
+    "fields": {
+      "name": "Сайты",
+      "description": "Сайты от  Sky"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 2,
+    "fields": {
+      "name": "Чат-боты",
+      "description": "Разработка ботов в телеграм"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 3,
+    "fields": {
+      "name": "Доставка еды",
+      "description": "Приложение для заказа и доставки блюд из ресторанов"
+    }
+  }
+]
