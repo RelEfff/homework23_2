@@ -65,11 +65,18 @@ class Product(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE,
                               verbose_name='Автор', blank=True, null=True,
                               related_name='products')
+    is_published = models.BooleanField(default=False,
+                                       verbose_name='Доступно публике')
 
     class Meta:
         verbose_name = "Продукт"
         verbose_name_plural = "Продукты"
         ordering = ["category", "name"]
+        permissions = [
+            ('product_set_published_status', 'Публиковать товар'),
+            ('product_change_description', 'Изменять описание товара'),
+            ('product_change_category', 'Изменять категорию товара'),
+        ]
 
     def __str__(self):
         return self.name
