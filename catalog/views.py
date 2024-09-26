@@ -6,7 +6,8 @@ from django.urls import reverse
 from django.views.generic import ListView, TemplateView, DetailView, DeleteView, CreateView, UpdateView
 
 from catalog.forms import ProductForm, VersionForm, ProductModerationForm
-from catalog.models import Product, Version
+from catalog.models import Product, Version, Category
+from catalog.services import cache_category_list, cache_product_list_by_category
 
 
 class ContactsTemplateView(TemplateView):
@@ -17,12 +18,14 @@ class ProductListView(LoginRequiredMixin, ListView):
     model = Product
 
     def get_queryset(self, *args, **kwargs):
+        category_id = self.kwargs['pk']
         if self.request.user.is_superuser or self.request.user.has_perm('catalog.view_product'):
-            return Product.objects.all()
-        return Product.objects.filter(is_published=True).all()
+            return cache_product_list_by_category(category_id)
+        return cache_product_list_by_category(category_id).filter(is_published=True)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['category_pk'] = self.kwargs['pk']
         for obj in context['object_list']:
             obj.active_version = obj.versions.filter(
                 is_active=True).first() if obj.versions.filter(
@@ -56,7 +59,7 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
     form_class = ProductForm
 
     def get_success_url(self):
-        return reverse('catalog:product_list')
+        return reverse('catalog:product_detail', kwargs={'pk': self.object.pk})
 
     def form_valid(self, form):
         product = form.save(commit=False)
@@ -74,6 +77,7 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['category_pk'] = Product.objects.get(pk=self.kwargs['pk']).category.pk
         if type(context['form']) == ProductForm:
             ProductFormset = inlineformset_factory(Product, Version, VersionForm,
                                                    extra=1)
@@ -122,5 +126,17 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
 class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['category_pk'] = Product.objects.get(pk=self.kwargs['pk']).category.pk
+        return context
+
     def get_success_url(self, *args, **kwargs):
         return reverse('catalog:product_list')
+
+
+class CategoryListView(LoginRequiredMixin, ListView):
+    model = Category
+
+    def get_queryset(self, *args, **kwargs):
+        return cache_category_list()
