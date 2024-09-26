@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card mb-4 box-shadow">
+    {% if blog %}
+    <div class="card-header">
+        <h4 class="my-0 font-weight-normal">{{blog.title}}</h4>
+    </div>
+    <div class="card-body">
+        <ul class="list-unstyled mt-3 mb-4 text-start m-3">
+            <li>{{blog.content}}</li>
+        </ul>
+
+        <a class="btn btn-lg btn-block btn-warning" href="{% url 'blog:blog_update' object.pk %}">Изменить</a>
+
+
+        <a class="btn btn-lg btn-block btn-danger" href="{% url 'blog:blog_delete' object.pk %}">Удалить</a>
+
+        <div class="card-footer">Просмотров статьи: {{blog.view_counter}}</div>
+    </div>
+    {% else %}
+    <h4 class="card-body">Данная статья не найдена</h4>
+    {% endif %}
+</div>
+{% endblock %}

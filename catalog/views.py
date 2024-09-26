@@ -1,19 +1,29 @@
 from django.shortcuts import render
+from django.urls import reverse
+from django.views.generic import ListView, TemplateView, DetailView, DeleteView, CreateView
 
 from catalog.models import Product
 
 
-def product_list(request):
-    products = Product.objects.all()
-    context = {'products': products}
-    return render(request, 'catalog/product_list.html', context=context)
+class ProductListView(ListView):
+    model = Product
 
 
-def contacts(request):
-    return render(request, 'contacts.html')
+class ContactsTemplateView(TemplateView):
+    template_name = 'contacts.html'
 
 
-def product_detail(request, pk):
-    product = Product.objects.filter(pk=pk).first()
-    context = {'product': product}
-    return render(request, 'catalog/product_detail.html', context=context)
+class ProductDetailView(DetailView):
+    model = Product
+
+
+# class ProductCreateView(CreateView):
+#     model = Product
+#
+#     def get_success_url(self):
+#         return reverse('catalog:product_list')
+#
+#
+# class ProductDeleteView(DeleteView):
+#     model = Product
+#     success_url = reverse('catalog:product_list')

@@ -13,6 +13,32 @@
     }
   },
   {
+    "model": "admin.logentry",
+    "pk": 2,
+    "fields": {
+      "action_time": "2024-09-26T11:35:20.007Z",
+      "user": 1,
+      "content_type": 9,
+      "object_id": "1",
+      "object_repr": "gsdfg",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\u041e\\u043f\\u0443\\u0431\\u043b\\u0438\\u043a\\u043e\\u0432\\u0430\\u043d\\u043e\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 3,
+    "fields": {
+      "action_time": "2024-09-26T11:37:21.476Z",
+      "user": 1,
+      "content_type": 9,
+      "object_id": "2",
+      "object_repr": "agdasfg",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\u041e\\u043f\\u0443\\u0431\\u043b\\u0438\\u043a\\u043e\\u0432\\u0430\\u043d\\u043e\"]}}]"
+    }
+  },
+  {
     "model": "auth.permission",
     "pk": 1,
     "fields": {
@@ -301,6 +327,42 @@
     }
   },
   {
+    "model": "auth.permission",
+    "pk": 33,
+    "fields": {
+      "name": "Can add Блог",
+      "content_type": 9,
+      "codename": "add_blog"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 34,
+    "fields": {
+      "name": "Can change Блог",
+      "content_type": 9,
+      "codename": "change_blog"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 35,
+    "fields": {
+      "name": "Can delete Блог",
+      "content_type": 9,
+      "codename": "delete_blog"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 36,
+    "fields": {
+      "name": "Can view Блог",
+      "content_type": 9,
+      "codename": "view_blog"
+    }
+  },
+  {
     "model": "auth.user",
     "pk": 1,
     "fields": {
@@ -383,6 +445,14 @@
     }
   },
   {
+    "model": "contenttypes.contenttype",
+    "pk": 9,
+    "fields": {
+      "app_label": "blog",
+      "model": "blog"
+    }
+  },
+  {
     "model": "sessions.session",
     "pk": "z2v7rotdrs2wb4fjbc1bc3sofv9bvr3i",
     "fields": {
@@ -425,6 +495,19 @@
       "price": 500,
       "created_at": "2024-09-26T09:36:57.051Z",
       "updated_at": "2024-09-26T09:36:57.051Z"
+    }
+  },
+  {
+    "model": "blog.blog",
+    "pk": 2,
+    "fields": {
+      "title": "agdasfg",
+      "slug": "agdasfg",
+      "content": "asgadsg",
+      "preview_image": "json_iCXPYTs.png",
+      "created_at": "2024-09-26T11:37:14.315Z",
+      "is_published": true,
+      "view_counter": 1
     }
   }
 ]
